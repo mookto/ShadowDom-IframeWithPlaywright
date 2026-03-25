@@ -4,8 +4,7 @@ test('Shadow DOM and Nested Iframe Automation', async ({ page }) => {
     // 1. Navigation
     await page.goto('https://selectorshub.com/xpath-practice-page/');
 
-    // // Scroll down (Selenium-er moto complex JS dorkar nei, but follow korlam)
-    // await page.evaluate(() => window.scrollBy(0, 1400));
+
 
     // --- 1. Fill 'Username' (Open Shadow Root Level 1) ---
     // Playwright automatically finds #kils inside the shadow root
@@ -48,4 +47,23 @@ test('Shadow DOM and Nested Iframe Automation', async ({ page }) => {
 
     // Manual Wait for visual confirmation (Optional)
     await page.waitForTimeout(2000);
+
+    await page.goto('https://selectorshub.com/iframe-scenario/');
+
+    // Locate the frame and the input field inside it
+    // Playwright handles the synchronization automatically
+    const firstCrushFrame = page.frameLocator('#pact1').first();
+    const inputField = firstCrushFrame.locator('#inp_val');
+
+    // Fill the text
+    await inputField.fill('Senior QA Engineer');
+
+    const currentCrushFrame=firstCrushFrame.frameLocator('#pact2');
+        const inputField2 = currentCrushFrame.locator('#jex');
+        await inputField2.fill('BYSL');
+
+
+    console.log('Text sent successfully in Playwright!');
+
+
 });
