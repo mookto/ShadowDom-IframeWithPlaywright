@@ -9,7 +9,17 @@ test('Shadow DOM and Nested Iframe Automation', async ({ page }) => {
     // --- 1. Fill 'Username' (Open Shadow Root Level 1) ---
     // Playwright automatically finds #kils inside the shadow root
     await page.locator('#kils').fill('MyUsername');
+// Playwright automatically handles Shadow DOM
+// Apni shorasori CSS selector use korte paren
+const svgElement = page.locator('svg[focusable="false"]');
 
+// SVG locate + text check (ba onno interaction)
+await expect(svgElement).toBeVisible();
+
+// SVG-te click kora
+await svgElement.click();
+
+console.log('SVG interaction successful in Playwright!');
     // --- 2. Fill 'Enter pizza name' (Nested Open Shadow Root) ---
     // Multiple shadow level holeo Playwright direct khuje pabe
     await page.locator('#pizza').fill('Chicken Pizza');
